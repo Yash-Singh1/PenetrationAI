@@ -16,7 +16,7 @@ import "@xterm/xterm/css/xterm.css";
 let cwd = "/usr/src/app";
 const ws2q = new Set<string>();
 const ws = new WebSocket("ws://localhost:3003");
-const ws2 = new WebSocket("ws://localhost:6767/ws")
+const ws2 = new WebSocket("ws://localhost:6767/ws");
 
 let XTerm = forwardRef<Terminal>((_props, ref) => {
   const [idle, setIdle] = useState(false);
@@ -114,6 +114,9 @@ let XTerm = forwardRef<Terminal>((_props, ref) => {
           return;
         }
         if (e.domEvent.key === "Enter") {
+          if (typeof window.MONACO_CONTAINER === "string" && window.MONACO_UPDATE) {
+            window.MONACO_UPDATE = false;
+          }
           enter();
         } else if (e.domEvent.key === "Backspace") {
           setCurrLine(currLine.slice(0, -1));

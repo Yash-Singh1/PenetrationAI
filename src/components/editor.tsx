@@ -7,16 +7,30 @@ import { useState, useEffect } from "react";
 import { conf } from "monaco-editor/esm/vs/basic-languages/python/python";
 
 export default function Editor() {
+  const [value, setValue] = useState("# placeholder\nprint('hello world')");
+
   return (
     <>
       <div>
         <MonacoEditor
           language="python"
-          value="print('Hello World!')"
-          className="min-h-[calc(100vh-7rem)] w-full"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+          className="min-h-[calc(100vh-8rem)] w-full"
           theme="vs-dark"
           options={conf}
         ></MonacoEditor>
+        <button
+          onClick={() => {
+            const el = Array.from(document.querySelectorAll("#chat pre")).pop();
+            setValue(el?.textContent || "");
+            window.MONACO_CONTAINER = el?.textContent;
+            window.MONACO_UPDATE = true;
+          }}
+          className="bg-blue-400 p-2 rounded-md"
+        >
+          Refresh
+        </button>
       </div>
     </>
   );

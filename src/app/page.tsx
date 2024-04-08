@@ -40,7 +40,7 @@ export default function Home() {
     <>
       <main className="grid font-mono min-h-screen max-h-screen grid-cols-2 gap-x-4 items-start justify-between p-8 overflow-y-hidden">
         <div className="flex flex-col min-h-[calc(100vh-4rem)] w-full">
-          <div className="flex font-mono text-sm flex-col relative w-full bg-slate-800 rounded-md self-baseline overflow-scroll flex-grow gap-y-2 p-4 h-96">
+          <div id="chat" className="flex font-mono text-sm flex-col relative w-full bg-slate-800 rounded-md self-baseline overflow-scroll flex-grow gap-y-2 p-4 h-96">
             {msgs.length ? (
               msgs.map((msg, i) => {
                 return (
@@ -79,15 +79,15 @@ export default function Home() {
                                           },
                                         },
                                       ],
-                                      [
-                                        function findPre(tree) {
-                                          visit(tree, "element", (node) => {
-                                            if (node.tagName === "pre") {
-                                              console.log(node.textContent)
-                                            }
-                                          });
-                                        },
-                                      ],
+                                      // [
+                                      //   function findPre(tree) {
+                                      //     visit(tree, "element", (node) => {
+                                      //       if (node.tagName === "pre") {
+                                      //         console.log(node.textContent)
+                                      //       }
+                                      //     });
+                                      //   },
+                                      // ],
                                     ]
                                   : []
                               }
@@ -129,7 +129,7 @@ export default function Home() {
                     { user: true, text: (e.target as HTMLInputElement).value },
                     { user: false, text: "", inProgress: true },
                   ]);
-                  fetch("https://4c38-107-77-212-233.ngrok-free.app/chat", {
+                  fetch("https://f557-107-77-212-6.ngrok-free.app/chat", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
